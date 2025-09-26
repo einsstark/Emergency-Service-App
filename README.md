@@ -65,32 +65,3 @@ del *.class        # Windows
 # or
 rm *.class         # macOS/Linux
 ```
-
----
-
-## How to upload to GitHub (quick steps)
-1. Create a new repo (e.g., `EmergencyServiceApp`) on GitHub (empty, no README).
-2. On your machine:
-   ```bash
-   cd /path/to/EmergencyServiceApp
-   git init
-   git add .
-   git commit -m "Initial commit: console EmergencyServiceApp (CRUD + file persistence)"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/EmergencyServiceApp.git
-   git push -u origin main
-   ```
-
----
-
-## Possible improvements
-- Input validation (non‑empty name/phone, numeric ID only).
-- Search by **name/phone** (not just ID).
-- Timestamps and status (new, in‑progress, resolved).
-- Export to CSV/JSON.
-- Unit tests for `RescueCallManager`.
-
----
-
-## License
-MIT (or choose your preferred license)
