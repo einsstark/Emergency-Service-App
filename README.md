@@ -3,6 +3,9 @@
 A tiny console app to record, search, update, and delete **emergency call** records (who called, what happened, and which services are needed).  
 Data is saved to a local `calls.txt` file so your records persist between runs.
 
+<img width="1400" height="619" alt="image" src="https://github.com/user-attachments/assets/a92e6157-b97a-47cf-8ea4-eb941a2752e9" />
+
+
 ## What it does
 - Add a new call (name, number, description, required services)
 - Update an existing call by ID
