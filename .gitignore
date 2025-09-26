@@ -1,0 +1,14 @@
+# Java
+*.class
+*.log
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# App data
+EmergencyServiceApp/calls.txt

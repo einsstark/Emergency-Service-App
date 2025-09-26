@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+public class AppLauncher {
+    public static void main(String[] args) {
+        // Create an instance of the call manager. This class is like a entry point for this applicaiton. 
+        RescueCallManager callManager = new RescueCallManager(); // -> It calls the constructor of RescueCallManager, which initializes the list of calls and loads any existing records from the file.
+        Scanner scanner = new Scanner(System.in);
+        int option;
+
+        while (true) // here it is true as until user wants to exit the application, it will keep showing the menu.
+        
+        {
+            showMenu();
+            try {
+                option = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue; // Restart the loop if the input is invalid
+            }
+
+            switch (option) {
+                case 1:
+                    // Option to add a new emergency call
+                    System.out.println("Enter caller name:");
+                    String name = scanner.nextLine();
+                    System.out.println("Enter contact number:");
+                    String contact = scanner.nextLine();
+                    System.out.println("Enter emergency description:");
+                    String description = scanner.nextLine();
+                    System.out.println("Enter required services (e.g., fire,police,ambulance):");
+                    String services = scanner.nextLine();
+                    callManager.addCall(name, contact, description, services);
+                    System.out.println("Emergency call added successfully.\n");
+                    break;
+                case 2:
+                    // Option to display all emergency calls
+                    System.out.println("Listing all emergency calls:");
+                    callManager.displayAllCalls();
+                    break;
+                case 3:
+                    // Option to remove an emergency call by ID
+                    System.out.println("Enter the Call ID to remove:");
+                    try {
+                        int id = Integer.parseInt(scanner.nextLine());
+                        boolean removed = callManager.removeCall(id);
+                        if (removed) {
+                            System.out.println("Call removed successfully.\n");
+                        } else {
+                            System.out.println("Call ID is not found.\n");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid Call ID. Please enter a number.");
+                    }
+                    break;
+                case 4:
+                    // Option to exit the application
+                    System.out.println("Exiting the application. Thanks for using it. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option. Please choose a number between 1 and 4.");
+            }
+        }
+    }
+
+    // Method to display the menu options
+    public static void showMenu() {
+        System.out.println("================== Made by Deepak Kumar ==================");
+        System.out.println("Emergency Service Application Menu");
+        System.out.println("1. Add Emergency Call");
+        System.out.println("2. Display All Emergency Calls");
+        System.out.println("3. Remove Emergency Call");
+        System.out.println("4. Exit the application");
+        System.out.print("Select an option: ");
+    }
+}
+

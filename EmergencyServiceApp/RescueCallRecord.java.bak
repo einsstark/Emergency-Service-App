@@ -1,0 +1,49 @@
+public class RescueCallRecord {
+    // these are private files to record the calls and store the details. 
+    private int callId;
+    private String callerName;
+    private String contactNumber;
+    private String description;
+    private String requiredServices;  
+
+    // Constructor to initialize the fields of the above class
+    public RescueCallRecord(int callId, String callerName, String contactNumber, String description, String requiredServices) {
+        this.callId = callId;
+        this.callerName = callerName;
+        this.contactNumber = contactNumber;
+        this.description = description;
+        this.requiredServices = requiredServices;
+    }
+
+    // Getter methods - it will help to read the values of private field
+    public int getCallId() {
+        return callId;
+    }
+    
+    public String getCallerName() {
+        return callerName;
+    }
+    
+    public String getContactNumber() {
+        return contactNumber;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public String getRequiredServices() {
+        return requiredServices;
+    }
+
+    // toString() method for to display of call details. It overrides the default toString() method. 
+    @Override
+    public String toString() {
+        return "Call ID is: " + callId + "\n" +
+               "Caller Name: " + callerName + "\n" +
+               "Contact Number: " + contactNumber + "\n" +
+               "Description (What happened?): " + description + "\n" +
+               "Required Services: " + requiredServices;
+    }
+}
+

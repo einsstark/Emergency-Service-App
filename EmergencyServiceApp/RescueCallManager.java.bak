@@ -1,0 +1,107 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.io.*;
+
+public class RescueCallManager {
+
+    // Here, the ArrayList will store RescueCallRecord objects and it can
+    // dynamically grow.
+    private ArrayList<RescueCallRecord> callList;
+
+    // Name of the file used to store call records.
+    private final String filename = "calls.txt";
+
+    // Counter to assign unique IDs to new calls during iteration process.
+    private int nextCallId;
+
+    public RescueCallManager() {
+        callList = new ArrayList<>();
+        nextCallId = 1; // starting id is set to 1 initially
+        loadCalls(); //
+    }
+
+    // Method 1: to add a new emergency call
+    public void addCall(String callerName, String contactNumber, String description, String requiredServices) {
+        RescueCallRecord newCall = new RescueCallRecord(nextCallId, callerName, contactNumber, description,
+                requiredServices);
+        callList.add(newCall);
+        nextCallId++; // Increment ID for the next call
+        saveCalls(); // calling the function so it updates the file with the new record is added
+    }
+
+    // Method 2: to remove an emergency call by its ID
+    public boolean removeCall(int callId) {
+        Iterator<RescueCallRecord> iterator = callList.iterator();
+
+        // whilst removing the loop will run as long as there are elements in the list
+        while (iterator.hasNext()) {
+            RescueCallRecord call = iterator.next();
+            if (call.getCallId() == callId) {
+                iterator.remove();
+                saveCalls();
+                return true;
+            }
+        }
+        return false; // if no caller id is found
+    }
+
+    // Method 3: to display all emergency calls
+    public void displayAllCalls() {
+        if (callList.isEmpty()) {
+            System.out.println("No emergency calls recorded. Please add before displaying.");
+        } else {
+            for (RescueCallRecord call : callList) {
+                System.out.println(call);
+                System.out.println("--------------------------");
+            }
+        }
+    }
+
+    // Method 4 to load calls from the file
+    private void loadCalls() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            // Read each line from the file; each line represents one call record
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(","); // plits the line into an array of strings using a comma.
+                if (parts.length >= 5) // Checks if the line contains enough 5 variables.
+
+                {
+                    int id = Integer.parseInt(parts[0].trim());
+                    String name = parts[1].trim();
+                    String contact = parts[2].trim();
+                    String desc = parts[3].trim();
+                    String services = parts[4].trim();
+                    callList.add(new RescueCallRecord(id, name, contact, desc, services));
+                    // Ensure nextCallId is always greater than the highest loaded ID.
+                    if (id >= nextCallId) {
+                        nextCallId = id + 1;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) // catch block to handle the case when the file doesn’t exist.
+
+        {
+            System.out.println("Call file not found. A new file will be created when saving calls.");
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    // Method 5: to save all calls to the file
+    private void saveCalls() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (RescueCallRecord call : callList) {
+                // Write each call in the same format used for loading
+                writer.write(call.getCallId() + "," +
+                        call.getCallerName() + "," +
+                        call.getContactNumber() + "," +
+                        call.getDescription() + "," +
+                        call.getRequiredServices());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving calls: " + e.getMessage());
+        }
+    }
+}
